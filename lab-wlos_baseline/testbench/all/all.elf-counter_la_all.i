@@ -1688,23 +1688,25 @@ void main()
         (*(volatile uint32_t*)0x26000068) = 0x1809;
         (*(volatile uint32_t*)0x26000064) = 0x1809;
 
-        (*(volatile uint32_t*)0x26000060) = 0x1808;
-        (*(volatile uint32_t*)0x2600005c) = 0x1808;
-        (*(volatile uint32_t*)0x26000058) = 0x1808;
-        (*(volatile uint32_t*)0x26000054) = 0x1808;
-        (*(volatile uint32_t*)0x26000050) = 0x1808;
-        (*(volatile uint32_t*)0x2600004c) = 0x1808;
-        (*(volatile uint32_t*)0x26000048) = 0x1808;
-        (*(volatile uint32_t*)0x26000044) = 0x1808;
-        (*(volatile uint32_t*)0x26000040) = 0x1808;
-        (*(volatile uint32_t*)0x26000038) = 0x1808;
-        (*(volatile uint32_t*)0x26000034) = 0x1808;
-        (*(volatile uint32_t*)0x26000030) = 0x1808;
-        (*(volatile uint32_t*)0x2600002c) = 0x1808;
-        (*(volatile uint32_t*)0x26000028) = 0x1808;
-        (*(volatile uint32_t*)0x26000024) = 0x1808;
+        (*(volatile uint32_t*)0x26000060) = 0x1809;
+     (*(volatile uint32_t*)0x2600005c) = 0x1809;
+     (*(volatile uint32_t*)0x26000058) = 0x1809;
+     (*(volatile uint32_t*)0x26000054) = 0x1809;
+   (*(volatile uint32_t*)0x26000050) = 0x1809;
+     (*(volatile uint32_t*)0x2600004c) = 0x1809;
+     (*(volatile uint32_t*)0x26000048) = 0x1809;
+     (*(volatile uint32_t*)0x26000044) = 0x1809;
+     (*(volatile uint32_t*)0x26000040) = 0x1809;
+     (*(volatile uint32_t*)0x26000034) = 0x1809;
+     (*(volatile uint32_t*)0x26000030) = 0x1809;
+     (*(volatile uint32_t*)0x2600002c) = 0x1809;
+     (*(volatile uint32_t*)0x26000028) = 0x1809;
+     (*(volatile uint32_t*)0x26000024) = 0x1809;
 
-        (*(volatile uint32_t*)0x2600003c) = 0x1809;
+    (*(volatile uint32_t*)0x2600003c) = 0x1808;
+    (*(volatile uint32_t*)0x26000038) = 0x0402;
+
+
 
 
 
@@ -1729,7 +1731,15 @@ void main()
 
 
  (*(volatile uint32_t*) ((0xf0000000L + 0x3010L) + 8)) = (*(volatile uint32_t*) ((0xf0000000L + 0x3000L) + 8)) = 0x00000000;
-# 125 "counter_la_all.c"
+# 126 "counter_la_all.c"
+ mask = irq_getmask();
+ mask |= 1 << 2;
+ irq_setmask(mask);
+
+ user_irq_0_ev_enable_write(1);
+
+
+
  int* tmp1 = qsort();
  (*(volatile uint32_t*)0x2600000c) = *tmp1 << 16;
  (*(volatile uint32_t*)0x2600000c) = *(tmp1+1) << 16;
@@ -1771,40 +1781,13 @@ void main()
 
 
     (*(volatile uint32_t*) (0xf0000000L + 0x3800L)) = 1;
-
-
-    (*(volatile uint32_t*)0x26000060) = 0x1809;
-    (*(volatile uint32_t*)0x2600005c) = 0x1809;
-    (*(volatile uint32_t*)0x26000058) = 0x1809;
-    (*(volatile uint32_t*)0x26000054) = 0x1809;
-    (*(volatile uint32_t*)0x26000050) = 0x1809;
-    (*(volatile uint32_t*)0x2600004c) = 0x1809;
-    (*(volatile uint32_t*)0x26000048) = 0x1809;
-    (*(volatile uint32_t*)0x26000044) = 0x1809;
-    (*(volatile uint32_t*)0x26000040) = 0x1809;
-    (*(volatile uint32_t*)0x26000034) = 0x1809;
-    (*(volatile uint32_t*)0x26000030) = 0x1809;
-    (*(volatile uint32_t*)0x2600002c) = 0x1809;
-    (*(volatile uint32_t*)0x26000028) = 0x1809;
-    (*(volatile uint32_t*)0x26000024) = 0x1809;
-
-    (*(volatile uint32_t*)0x2600003c) = 0x1808;
-    (*(volatile uint32_t*)0x26000038) = 0x0402;
-
-
+# 196 "counter_la_all.c"
  (*(volatile uint32_t*)0x26000000) = 1;
  while ((*(volatile uint32_t*)0x26000000) == 1);
  (*(volatile uint32_t*)0x2600000c) = 0xAB430000;
 
  (*(volatile uint32_t*)0x2600000c) = 0xAB510000;
 
-
-
- mask = irq_getmask();
- mask |= 1 << 2;
- irq_setmask(mask);
-
- user_irq_0_ev_enable_write(1);
 
 
 }

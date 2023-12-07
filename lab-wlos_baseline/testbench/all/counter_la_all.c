@@ -69,23 +69,25 @@ void main()
         reg_mprj_io_17 = GPIO_MODE_MGMT_STD_OUTPUT;
         reg_mprj_io_16 = GPIO_MODE_MGMT_STD_OUTPUT;
 
-        reg_mprj_io_15 = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_14 = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_13 = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_12 = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_11 = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_10 = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_9  = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_8  = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_7  = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_5  = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_4  = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_3  = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_2  = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_1  = GPIO_MODE_USER_STD_OUTPUT;
-        reg_mprj_io_0  = GPIO_MODE_USER_STD_OUTPUT;
+        reg_mprj_io_15 = GPIO_MODE_MGMT_STD_OUTPUT;
+    	reg_mprj_io_14 = GPIO_MODE_MGMT_STD_OUTPUT;
+    	reg_mprj_io_13 = GPIO_MODE_MGMT_STD_OUTPUT;
+    	reg_mprj_io_12 = GPIO_MODE_MGMT_STD_OUTPUT;
+  	reg_mprj_io_11 = GPIO_MODE_MGMT_STD_OUTPUT;
+    	reg_mprj_io_10 = GPIO_MODE_MGMT_STD_OUTPUT;
+    	reg_mprj_io_9  = GPIO_MODE_MGMT_STD_OUTPUT;
+    	reg_mprj_io_8  = GPIO_MODE_MGMT_STD_OUTPUT;
+    	reg_mprj_io_7  = GPIO_MODE_MGMT_STD_OUTPUT;
+    	reg_mprj_io_4  = GPIO_MODE_MGMT_STD_OUTPUT;
+    	reg_mprj_io_3  = GPIO_MODE_MGMT_STD_OUTPUT;
+    	reg_mprj_io_2  = GPIO_MODE_MGMT_STD_OUTPUT;
+    	reg_mprj_io_1  = GPIO_MODE_MGMT_STD_OUTPUT;
+    	reg_mprj_io_0  = GPIO_MODE_MGMT_STD_OUTPUT;
 
-        reg_mprj_io_6  = GPIO_MODE_MGMT_STD_OUTPUT;
+   	reg_mprj_io_6  = GPIO_MODE_USER_STD_OUTPUT;
+   	reg_mprj_io_5  = GPIO_MODE_USER_STD_INPUT_NOPULL;
+   	
+   	
 
 	// Set UART clock to 64 kbaud (enable before I/O configuration)
 	// reg_uart_clkdiv = 625;
@@ -119,7 +121,14 @@ void main()
 		}
 	}
 */	
-
+#ifdef USER_PROJ_IRQ0_EN	
+	// unmask USER_IRQ_0_INTERRUPT
+	mask = irq_getmask();
+	mask |= 1 << USER_IRQ_0_INTERRUPT; // USER_IRQ_0_INTERRUPT = 2
+	irq_setmask(mask);
+	// enable user_irq_0_ev_enable
+	user_irq_0_ev_enable_write(1);	
+#endif
 
 /*----------------------qs--------------------------*/
 	int* tmp1 = qsort();
@@ -165,7 +174,7 @@ void main()
     reg_wb_enable = 1;
 
     
-    reg_mprj_io_15 = GPIO_MODE_MGMT_STD_OUTPUT;
+    /*reg_mprj_io_15 = GPIO_MODE_MGMT_STD_OUTPUT;
     reg_mprj_io_14 = GPIO_MODE_MGMT_STD_OUTPUT;
     reg_mprj_io_13 = GPIO_MODE_MGMT_STD_OUTPUT;
     reg_mprj_io_12 = GPIO_MODE_MGMT_STD_OUTPUT;
@@ -181,7 +190,7 @@ void main()
     reg_mprj_io_0  = GPIO_MODE_MGMT_STD_OUTPUT;
 
    	reg_mprj_io_6  = GPIO_MODE_USER_STD_OUTPUT;
-   	reg_mprj_io_5  = GPIO_MODE_USER_STD_INPUT_NOPULL;
+   	reg_mprj_io_5  = GPIO_MODE_USER_STD_INPUT_NOPULL;*/
 
 	/* Apply configuration */
 	reg_mprj_xfer = 1;
@@ -190,14 +199,7 @@ void main()
         
 	reg_mprj_datal = 0xAB510000;
 
-#ifdef USER_PROJ_IRQ0_EN	
-	// unmask USER_IRQ_0_INTERRUPT
-	mask = irq_getmask();
-	mask |= 1 << USER_IRQ_0_INTERRUPT; // USER_IRQ_0_INTERRUPT = 2
-	irq_setmask(mask);
-	// enable user_irq_0_ev_enable
-	user_irq_0_ev_enable_write(1);	
-#endif
+
 
 }
 

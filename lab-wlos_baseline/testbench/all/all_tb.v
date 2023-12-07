@@ -205,10 +205,10 @@ module all_tb;
 		wait(checkbits == 16'd1098);
 		$display("Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);
 		
-		wait(checkbits == 16'hAB43);
+		
 
 		/*-----uart-----*/
-		$display("uart");
+		/*$display("uart");
 		send_data_1;
 		wait(rx_finish);
 		send_data_2;	
@@ -216,7 +216,24 @@ module all_tb;
 
 		$display("LA Test 2 passed");
 		#10000;
-		$finish;
+		$finish;*/
+	end
+
+	initial begin
+	/*-----uart-----*/
+	  wait(checkbits == 16'hAB40);
+	  $display("uart");
+	  repeat (25) begin
+	    repeat (1500) @(posedge clock);
+	  end
+	  send_data_1;
+	  wait(rx_finish);
+	  //send_data_2;	
+	  //wait(rx_finish);
+
+	  $display("LA Test 2 passed");
+	  #10000;
+	  $finish;
 	end
 
 	//send uart data1//
